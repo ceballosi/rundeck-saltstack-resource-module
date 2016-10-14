@@ -1,0 +1,41 @@
+name: Saltstack Resource Model Source
+version: 1.0
+rundeckPluginVersion: 1.0
+author: matthew@newedgeengineering.com
+date: 2016 10 10
+providers:
+    - name: Saltstack
+      service: ResourceModelSource
+      plugin-type: script
+      script-interpreter: python
+      script-file: nodes.py
+      resource-format: resourceyaml
+      config:
+        - type: String
+          name: endpoint
+          title: Endpoint
+          description: Enter the Salt API host endpoint.
+          required: true
+          default: https://salt:8000
+        - type: String
+          name: username
+          title: Username
+          description: Enter the username for the API host endpoint (first part before @).
+          required: true
+        - type: String
+          name: password
+          title: Password
+          description: Enter the password for the API host endpoint.
+          required: true
+          renderingOptions:
+              displayType: PASSWORD
+        - type: String
+          name: eauth
+          title: External Authentication
+          description: Enter the external authentication type, i.e. pam, ldap.
+          default: pam
+        - type: String
+          name: ssh_user
+          title: SSH username
+          description: Enter the SSH username that can be use to connect to the resource.
+          default: deploy
