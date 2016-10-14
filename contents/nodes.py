@@ -68,7 +68,12 @@ def saltstack(endpoint, username, password, eauth, ssh_user):
                     '.'.join(str(x) for x in data[host]['pythonversion'][:3])
                 ))
     else:
-        raise SystemExit("Invalid endpoint [{0}]".format(response.status_code))
+        raise SystemExit(
+            "Invalid[{0}] endpoint: '{1}'".format(
+                response.status_code,
+                endpoint
+            )
+        )
 
 
 if __name__ == '__main__':
