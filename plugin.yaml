@@ -9,6 +9,7 @@ providers:
       plugin-type: script
       script-interpreter: python
       script-file: nodes.py
+      script-args: $RD_CONFIG_ENDPOINT $RD_CONFIG_USERNAME $RD_CONFIG_PASSWORD $RD_CONFIG_EAUTH $RD_CONFIG_SSH_USER
       resource-format: resourceyaml
       config:
         - type: String
