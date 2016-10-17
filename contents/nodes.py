@@ -15,6 +15,12 @@ try:
 except ImportError:
     pass
 
+try:
+    import urllib3
+    urllib3.disable_warnings()
+except ImportError:
+    pass
+
 
 @click.command()
 @click.argument('endpoint', required=True)
