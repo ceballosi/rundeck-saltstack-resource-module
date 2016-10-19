@@ -17,7 +17,8 @@ except ImportError:
 
 try:
     import urllib3
-    urllib3.disable_warnings()
+    if callable(getattr(urllib3, 'disable_warnings')):
+        urllib3.disable_warnings()
 except ImportError:
     pass
 
