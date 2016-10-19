@@ -17,9 +17,10 @@ except ImportError:
 
 try:
     import urllib3
-    if callable(getattr(urllib3, 'disable_warnings')):
-        urllib3.disable_warnings()
+    urllib3.disable_warnings()
 except ImportError:
+    pass
+except AttributeError:
     pass
 
 
@@ -48,9 +49,9 @@ def saltstack(endpoint, username, password, eauth, ssh_user):
         data = response.json()
         minions_headers = {
             "Accept": "application/json",
-            'X-Auth-Token': data['return'][0]['token']
+            "X-Auth-Token": data['return'][0]['token']
         }
-        vm_query_url = "{0}/minions/".format(endpoint)
+        vm_query_url = "{0}/minions".format(endpoint)
         response = requests.get(
             vm_query_url,
             headers=minions_headers,
@@ -74,6 +75,12 @@ def saltstack(endpoint, username, password, eauth, ssh_user):
                 print("  python: {0}".format(
                     '.'.join(str(x) for x in data[host]['pythonversion'][:3])
                 ))
+        else:
+            raise SystemExit(
+                "Failed to get minion information[{0}]".format(
+                    response.status_code
+                )
+            )
     else:
         raise SystemExit(
             "Invalid[{0}] endpoint: '{1}'".format(
