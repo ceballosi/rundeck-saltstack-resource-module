@@ -59,8 +59,8 @@ def saltstack(endpoint, username, password, eauth, ssh_user):
         )
         if response.status_code == 200:
             json = response.json()
-            for data in json['return']:
-                host = data.keys().pop()
+            data = json['return'][0]
+            for host in data.keys():
                 print("{0}:".format(host))
                 print("  username: {0}".format(ssh_user))
                 print("  description:")
