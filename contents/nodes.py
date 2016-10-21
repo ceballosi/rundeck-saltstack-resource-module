@@ -62,9 +62,11 @@ def saltstack(endpoint, username, password, eauth, ssh_user):
             data = json['return'][0]
             for host in data.keys():
                 print("{0}:".format(host))
+                print("  hostname: {0}".format(host))
                 print("  username: {0}".format(ssh_user))
                 print("  description:")
-                print("  tags: {0}".format(','.join(data[host]['roles'])))
+                if 'roles' in data[host]:
+                    print("  tags: {0}".format(','.join(data[host]['roles'])))
                 print("  osFamily: {0}".format(data[host]['os_family']))
                 print("  osArch: {0}".format(data[host]['cpuarch']))
                 print("  osName: {0}".format(data[host]['os']))
